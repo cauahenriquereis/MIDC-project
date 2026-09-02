@@ -1,8 +1,16 @@
 import os
+import urllib.parse
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
+from dotenv import load_dotenv
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://admin:admin@localhost:5432/indicadores")
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    password = urllib.parse.quote_plus("Engenharias2021#")
+    DATABASE_URL = f"postgresql://postgres:{password}@localhost:5432/midc_db"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

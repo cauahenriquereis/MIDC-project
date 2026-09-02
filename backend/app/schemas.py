@@ -27,3 +27,7 @@ class RegistroOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+class SummaryOut(BaseModel):
+    total_registros: int
+    total_entregas: int        
